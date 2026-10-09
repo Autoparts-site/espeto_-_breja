@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Painel · Espeto &amp; Breja</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js" defer></script>
+  <script src="/config.js" defer></script>
+  <script src="/js/app.js" defer></script>
+  <script src="/js/painel.js" defer></script>
+</head>
+<body>
+  <div id="carregando" class="carregando"><div><div class="spinner"></div>Carregando seu painel…</div></div>
+
+  <div id="app" class="painel hidden">
+    <!-- Barra lateral (desktop) / topo (celular) -->
+    <aside class="painel-lateral">
+      <a class="logo-marca" href="/" data-logo><span>Espeto <b>&amp;</b> Breja</span></a>
+
+      <nav class="menu-abas" role="tablist" aria-label="Seções do painel" id="menu-abas">
+        <button role="tab" data-aba="resumo" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          <span>Resumo</span>
+        </button>
+        <button role="tab" data-aba="produtos" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 20 4"/><rect x="7" y="11" width="5" height="5" rx="1" transform="rotate(-45 9.5 13.5)"/><rect x="11" y="7" width="5" height="5" rx="1" transform="rotate(-45 13.5 9.5)"/></svg>
+          <span>Produtos</span>
+        </button>
+        <button role="tab" data-aba="categorias" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>
+          <span>Categorias</span>
+        </button>
+        <button role="tab" data-aba="estabelecimento" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+          <span>Ajustes</span>
+        </button>
+        <button role="tab" data-aba="compartilhar" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
+          <span>QR Code</span>
+        </button>
+      </nav>
+
+      <div class="acoes-topo">
+        <button class="btn btn-ghost btn-sm" type="button" data-sair>Sair</button>
+      </div>
+      <div class="rodape-lateral">
+        <span class="usuario" id="usuario-email"></span>
+        <button class="btn btn-sec btn-sm" type="button" data-sair>Sair</button>
+      </div>
+    </aside>
+
+    <main class="painel-main">
+      <!-- ============ ONBOARDING: primeiro estabelecimento ============ -->
+      <section id="onboarding" class="hidden">
+        <div class="painel-cab"><h1>Bem-vindo! 🔥</h1></div>
+        <div class="cartao">
+          <h2>Cadastre seu estabelecimento</h2>
+          <p class="muted">Comece pelo nome. Você poderá personalizar logo, cores e demais informações em seguida.</p>
+          <div id="msg-onboarding" class="hidden" role="alert"></div>
+          <form id="form-novo-estab" novalidate>
+            <div class="campo">
+              <label for="novo-nome">Nome fantasia</label>
+              <input id="novo-nome" type="text" maxlength="120" placeholder="Ex.: Espeto do Sérgio" required>
+            </div>
+            <div class="campo">
+              <label for="novo-slug">Endereço do cardápio</label>
+              <input id="novo-slug" type="text" maxlength="60" placeholder="espeto-do-sergio" required>
+              <span class="dica" id="novo-slug-previa"></span>
+            </div>
+            <button class="btn" type="submit">Criar estabelecimento</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ============ CONTEÚDO PRINCIPAL ============ -->
+      <div id="conteudo" class="hidden">
+        <div class="painel-cab">
+          <h1 id="titulo-aba">Resumo</h1>
+          <div class="seletor-estab">
+            <label class="sr-only" for="sel-estab">Estabelecimento</label>
+            <select id="sel-estab"></select>
+            <button class="btn btn-sec btn-sm" type="button" id="btn-novo-estab" title="Novo estabelecimento">+ Novo</button>
+          </div>
+        </div>
+
+        <!-- RESUMO -->
+        <section data-painel="resumo">
+          <div class="cartao">
+            <div class="resumo-estab">
+              <img class="logo-mini" id="resumo-logo" alt="" hidden>
+              <div>
+                <h2 id="resumo-nome" class="m0"></h2>
+                <span id="resumo-status" class="status"></span>
+              </div>
+            </div>
+            <p class="muted small" id="resumo-aviso" hidden>Seu cardápio ainda não está publicado. Ative a publicação em <a href="#" data-ir="estabelecimento">Ajustes</a> para que os clientes possam acessá-lo.</p>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><div class="valor" id="kpi-produtos">0</div><div class="rotulo">Produtos</div></div>
+            <div class="kpi"><div class="valor" id="kpi-ativos">0</div><div class="rotulo">Disponíveis</div></div>
+            <div class="kpi"><div class="valor" id="kpi-destaques">0</div><div class="rotulo">Em destaque</div></div>
+            <div class="kpi"><div class="valor" id="kpi-categorias">0</div><div class="rotulo">Categorias</div></div>
+          </div>
+          <div class="cartao">
+            <h3>Link público do cardápio</h3>
+            <div class="link-publico">
+              <input type="text" readonly id="resumo-link" aria-label="Link público">
+              <button class="btn btn-sec btn-sm" type="button" data-copiar="#resumo-link">Copiar</button>
+              <a class="btn btn-sm" id="resumo-abrir" target="_blank" rel="noopener">Abrir</a>
+            </div>
+          </div>
+          <div class="cartao">
+            <h3>Próximos passos</h3>
+            <div class="filtros">
+              <button class="btn btn-sec btn-sm" type="button" data-ir="estabelecimento">Personalizar estabelecimento</button>
+              <button class="btn btn-sec btn-sm" type="button" data-ir="categorias">Criar categorias</button>
+              <button class="btn btn-sec btn-sm" type="button" data-ir="produtos">Cadastrar produtos</button>
+              <button class="btn btn-sec btn-sm" type="button" data-ir="compartilhar">Gerar QR Code</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- PRODUTOS -->
+        <section data-painel="produtos" class="hidden">
+          <div class="cartao">
+            <div class="cartao-cab">
+              <h2>Produtos</h2>
+              <button class="btn" type="button" id="btn-novo-produto">+ Novo produto</button>
+            </div>
+            <div class="filtros">
+              <label class="sr-only" for="filtro-cat">Filtrar por categoria</label>
+              <select id="filtro-cat"></select>
+              <label class="sr-only" for="filtro-busca">Buscar produto</label>
+              <input type="search" id="filtro-busca" placeholder="Buscar produto…">
+            </div>
+            <div id="lista-produtos"></div>
+          </div>
+        </section>
+
+        <!-- CATEGORIAS -->
+        <section data-painel="categorias" class="hidden">
+          <div class="cartao">
+            <div class="cartao-cab">
+              <h2>Categorias</h2>
+              <button class="btn" type="button" id="btn-nova-categoria">+ Nova categoria</button>
+            </div>
+            <p class="muted small">Use as setas para definir a ordem em que as categorias aparecem no cardápio. Categorias desativadas ficam ocultas, junto com seus produtos.</p>
+            <ul class="lista" id="lista-categorias"></ul>
+          </div>
+        </section>
+
+        <!-- AJUSTES DO ESTABELECIMENTO -->
+        <section data-painel="estabelecimento" class="hidden">
+          <form id="form-estab" class="cartao" novalidate>
+            <div class="cartao-cab">
+              <h2>Dados do estabelecimento</h2>
+              <label class="chave"><input type="checkbox" id="estab-ativo"><span class="trilho"></span><span>Cardápio publicado</span></label>
+            </div>
+            <div id="msg-estab" class="hidden" role="alert"></div>
+
+            <div class="campo">
+              <span class="rotulo">Logo</span>
+              <div class="upload">
+                <img class="previa" id="estab-logo-previa" alt="Prévia do logo" hidden>
+                <div class="previa vazio" id="estab-logo-vazio">Sem logo</div>
+                <div>
+                  <input type="file" id="estab-logo" accept="image/jpeg,image/png,image/webp">
+                  <p class="dica small muted">JPG, PNG ou WebP · até 2 MB · ideal quadrado</p>
+                  <button class="btn btn-ghost btn-sm" type="button" id="estab-logo-remover" hidden>Remover logo</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="grade-2">
+              <div class="campo">
+                <label for="estab-nome">Nome fantasia</label>
+                <input id="estab-nome" type="text" maxlength="120" required>
+              </div>
+              <div class="campo">
+                <label for="estab-slug">Endereço do cardápio</label>
+                <input id="estab-slug" type="text" maxlength="60" required>
+                <span class="dica" id="estab-slug-previa"></span>
+              </div>
+            </div>
+            <div class="campo">
+              <label for="estab-boas-vindas">Mensagem de boas-vindas</label>
+              <input id="estab-boas-vindas" type="text" maxlength="300" placeholder="Ex.: Bem-vindo! Peça seu espeto favorito 🍢">
+            </div>
+            <div class="campo">
+              <label for="estab-descricao">Descrição</label>
+              <textarea id="estab-descricao" maxlength="500" placeholder="Conte um pouco sobre a casa"></textarea>
+            </div>
+            <div class="grade-2">
+              <div class="campo">
+                <label for="estab-telefone">Telefone / WhatsApp</label>
+                <input id="estab-telefone" type="tel" maxlength="30" placeholder="(11) 98888-7777">
+              </div>
+              <div class="campo">
+                <label for="estab-endereco">Endereço <span class="muted">(opcional)</span></label>
+                <input id="estab-endereco" type="text" maxlength="200">
+              </div>
+            </div>
+            <div class="grade-2">
+              <div class="campo">
+                <label for="estab-cor1">Cor principal</label>
+                <div class="linha-cor"><input id="estab-cor1" type="color" value="#D9480F"><code id="estab-cor1-txt"></code></div>
+              </div>
+              <div class="campo">
+                <label for="estab-cor2">Cor secundária</label>
+                <div class="linha-cor"><input id="estab-cor2" type="color" value="#F2A71B"><code id="estab-cor2-txt"></code></div>
+              </div>
+            </div>
+            <div class="filtros">
+              <button class="btn" type="submit">Salvar alterações</button>
+              <button class="btn btn-perigo" type="button" id="btn-excluir-estab">Excluir estabelecimento</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- COMPARTILHAR -->
+        <section data-painel="compartilhar" class="hidden">
+          <div class="compartilhar">
+            <div>
+              <div class="cartao">
+                <h2>QR Code</h2>
+                <div class="qr-box">
+                  <img id="qr-img" alt="QR Code do cardápio">
+                  <a class="btn btn-sec btn-sm" id="qr-baixar" download="qrcode-cardapio.png">Baixar PNG</a>
+                </div>
+              </div>
+              <div class="cartao">
+                <h3>Link para compartilhar</h3>
+                <div class="link-publico">
+                  <input type="text" readonly id="comp-link" aria-label="Link público">
+                  <button class="btn btn-sec btn-sm" type="button" data-copiar="#comp-link">Copiar</button>
+                </div>
+                <p class="small muted" id="comp-aviso" hidden>⚠️ O cardápio está despublicado: o link mostrará “não encontrado” para os clientes até você publicá-lo.</p>
+              </div>
+            </div>
+            <div class="cartao">
+              <div class="cartao-cab">
+                <h2>Pré-visualização</h2>
+                <button class="btn btn-ghost btn-sm" type="button" id="btn-recarregar-previa">Atualizar</button>
+              </div>
+              <iframe id="previa-frame" class="previa-frame" title="Pré-visualização do cardápio"></iframe>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============ MODAL: CATEGORIA ============ -->
+  <dialog class="modal" id="modal-categoria">
+    <form id="form-categoria" novalidate>
+      <div class="modal-cab"><h2 id="modal-categoria-titulo">Nova categoria</h2><button class="btn btn-ghost btn-icon" type="button" data-fechar aria-label="Fechar">✕</button></div>
+      <div class="modal-corpo">
+        <div id="msg-categoria" class="hidden" role="alert"></div>
+        <div class="campo"><label for="cat-nome">Nome</label><input id="cat-nome" type="text" maxlength="80" placeholder="Ex.: Espetos" required></div>
+        <div class="campo"><label for="cat-descricao">Descrição <span class="muted">(opcional)</span></label><input id="cat-descricao" type="text" maxlength="300"></div>
+        <label class="chave"><input type="checkbox" id="cat-ativo" checked><span class="trilho"></span><span>Visível no cardápio</span></label>
+      </div>
+      <div class="modal-rodape">
+        <button class="btn btn-sec" type="button" data-fechar>Cancelar</button>
+        <button class="btn" type="submit" id="btn-salvar-categoria">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ============ MODAL: PRODUTO ============ -->
+  <dialog class="modal" id="modal-produto">
+    <form id="form-produto" novalidate>
+      <div class="modal-cab"><h2 id="modal-produto-titulo">Novo produto</h2><button class="btn btn-ghost btn-icon" type="button" data-fechar aria-label="Fechar">✕</button></div>
+      <div class="modal-corpo">
+        <div id="msg-produto" class="hidden" role="alert"></div>
+        <div class="campo">
+          <span class="rotulo">Foto</span>
+          <div class="upload">
+            <img class="previa" id="prod-img-previa" alt="Prévia da foto" hidden>
+            <div class="previa vazio" id="prod-img-vazio">Sem foto</div>
+            <div>
+              <input type="file" id="prod-img" accept="image/jpeg,image/png,image/webp">
+              <p class="dica small muted">JPG, PNG ou WebP · até 2 MB</p>
+              <button class="btn btn-ghost btn-sm" type="button" id="prod-img-remover" hidden>Remover foto</button>
+            </div>
+          </div>
+        </div>
+        <div class="campo"><label for="prod-nome">Nome</label><input id="prod-nome" type="text" maxlength="120" placeholder="Ex.: Espeto de picanha" required></div>
+        <div class="campo"><label for="prod-descricao">Descrição</label><textarea id="prod-descricao" maxlength="500" placeholder="Ingredientes, acompanhamentos, tamanho…"></textarea></div>
+        <div class="grade-2">
+          <div class="campo"><label for="prod-preco">Preço (R$)</label><input id="prod-preco" type="text" inputmode="decimal" placeholder="0,00" required></div>
+          <div class="campo"><label for="prod-categoria">Categoria</label><select id="prod-categoria"></select></div>
+        </div>
+        <div class="grade-2">
+          <label class="chave"><input type="checkbox" id="prod-ativo" checked><span class="trilho"></span><span>Disponível</span></label>
+          <label class="chave"><input type="checkbox" id="prod-destaque"><span class="trilho"></span><span>Em destaque</span></label>
+        </div>
+      </div>
+      <div class="modal-rodape">
+        <button class="btn btn-sec" type="button" data-fechar>Cancelar</button>
+        <button class="btn" type="submit" id="btn-salvar-produto">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

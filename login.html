@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Entrar · Espeto &amp; Breja</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script src="/config.js" defer></script>
+  <script src="/js/app.js" defer></script>
+  <script src="/js/auth.js" defer></script>
+</head>
+<body data-pagina="login">
+  <main class="auth-page">
+    <aside class="auth-lado">
+      <a class="logo-marca" href="/" data-logo><span>Espeto <b>&amp;</b> Breja</span></a>
+      <h2>Seu cardápio na brasa, no celular do cliente.</h2>
+      <p>Cadastre produtos, ajuste preços em segundos e compartilhe por link ou QR Code. Cada estabelecimento com a sua cara.</p>
+    </aside>
+    <section class="auth-form-wrap">
+      <div class="auth-card">
+        <a class="logo-marca" href="/" data-logo><span>Espeto <b>&amp;</b> Breja</span></a>
+        <h1>Entrar</h1>
+        <p class="muted">Acesse o painel do seu estabelecimento.</p>
+        <div id="mensagem" class="hidden" role="alert"></div>
+        <form id="form-login" novalidate>
+          <div class="campo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" required></div>
+          <div class="campo"><label for="senha">Senha</label><input id="senha" type="password" autocomplete="current-password" required></div>
+          <p class="small"><a href="/recuperar-senha">Esqueci minha senha</a></p>
+          <button class="btn btn-block" type="submit">Entrar</button>
+        </form>
+        <p class="rodape">Ainda não tem conta? <a href="/cadastro">Cadastre-se grátis</a></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

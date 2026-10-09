@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Espeto &amp; Breja · Cardápio digital para o seu estabelecimento</title>
+  <meta name="description" content="Crie o cardápio digital do seu bar ou espetaria, gerencie produtos e compartilhe por link e QR Code.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script src="/config.js" defer></script>
+  <script src="/js/app.js" defer></script>
+  <script src="/js/index.js" defer></script>
+</head>
+<body>
+  <header class="landing-topo">
+    <a class="logo-marca" href="/" data-logo><span>Espeto <b>&amp;</b> Breja</span></a>
+    <nav>
+      <a class="btn btn-ghost" href="/login" id="link-entrar">Entrar</a>
+      <a class="btn" href="/cadastro" id="link-cta">Criar conta</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Cardápio digital <em>na brasa</em>.</h1>
+      <p>A plataforma para espetarias, bares e botecos montarem seu cardápio online. Atualize preços na hora, destaque o espeto da casa e compartilhe por link ou QR Code na mesa.</p>
+      <div class="acoes">
+        <a class="btn" href="/cadastro">Começar agora</a>
+        <a class="btn btn-sec" href="/login">Já tenho conta</a>
+      </div>
+    </section>
+
+    <section class="recursos" aria-label="Como funciona">
+      <article class="recurso">
+        <div class="num">01</div>
+        <h3>Crie sua conta</h3>
+        <p class="muted">Cadastro rápido e acesso seguro ao seu painel. Cada estabelecimento tem dados totalmente separados.</p>
+      </article>
+      <article class="recurso">
+        <div class="num">02</div>
+        <h3>Personalize</h3>
+        <p class="muted">Logo, cores, mensagem de boas-vindas, WhatsApp e endereço. O cardápio fica com a cara da sua casa.</p>
+      </article>
+      <article class="recurso">
+        <div class="num">03</div>
+        <h3>Monte o cardápio</h3>
+        <p class="muted">Categorias, produtos com foto e preço, destaques e itens indisponíveis — tudo na ordem que você quiser.</p>
+      </article>
+      <article class="recurso">
+        <div class="num">04</div>
+        <h3>Compartilhe</h3>
+        <p class="muted">Um endereço exclusivo e um QR Code pronto para imprimir. O cliente abre no celular, sem login.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="landing-rodape">© <span id="ano"></span> Espeto &amp; Breja · Cardápios digitais</footer>
+</body>
+</html>

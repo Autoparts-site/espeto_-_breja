@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Nova senha · Espeto &amp; Breja</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script src="/config.js" defer></script>
+  <script src="/js/app.js" defer></script>
+  <script src="/js/auth.js" defer></script>
+</head>
+<body data-pagina="nova-senha">
+  <main class="auth-page">
+    <aside class="auth-lado">
+      <a class="logo-marca" href="/" data-logo><span>Espeto <b>&amp;</b> Breja</span></a>
+      <h2>Seu cardápio na brasa, no celular do cliente.</h2>
+      <p>Cadastre produtos, ajuste preços em segundos e compartilhe por link ou QR Code. Cada estabelecimento com a sua cara.</p>
+    </aside>
+    <section class="auth-form-wrap">
+      <div class="auth-card">
+        <a class="logo-marca" href="/" data-logo><span>Espeto <b>&amp;</b> Breja</span></a>
+        <h1>Nova senha</h1>
+        <div id="mensagem" class="alerta alerta-info" role="alert">Validando o link…</div>
+        <form id="form-nova-senha" class="hidden" novalidate>
+          <div class="campo"><label for="senha">Nova senha</label><input id="senha" type="password" autocomplete="new-password" minlength="8" required><span class="dica">Mínimo de 8 caracteres.</span></div>
+          <div class="campo"><label for="confirmar">Confirmar nova senha</label><input id="confirmar" type="password" autocomplete="new-password" required></div>
+          <button class="btn btn-block" type="submit">Salvar nova senha</button>
+        </form>
+        <p class="rodape"><a href="/login">Voltar para o login</a></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

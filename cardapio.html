@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cardápio</title>
+  <meta name="theme-color" content="#D9480F">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script src="/config.js" defer></script>
+  <script src="/js/app.js" defer></script>
+  <script src="/js/cardapio.js" defer></script>
+</head>
+<body class="menu-page">
+  <div id="faixa-preview" class="preview-faixa hidden">Pré-visualização · este cardápio ainda não está publicado</div>
+
+  <div id="carregando" class="carregando"><div><div class="spinner"></div>Carregando cardápio…</div></div>
+
+  <div id="nao-encontrado" class="erro-page hidden">
+    <div>
+      <h1>Ops!</h1>
+      <h2>Cardápio não encontrado</h2>
+      <p>Este endereço não existe ou o cardápio está temporariamente indisponível.</p>
+      <a class="btn" href="/">Ir para o início</a>
+    </div>
+  </div>
+
+  <div id="cardapio" class="hidden">
+    <header class="menu-topo">
+      <div class="menu-topo-in">
+        <img class="menu-logo hidden" id="m-logo" alt="">
+        <div class="menu-logo vazio hidden" id="m-logo-vazio" aria-hidden="true"></div>
+        <h1 id="m-nome"></h1>
+        <p class="boas-vindas" id="m-boas-vindas"></p>
+        <p class="descricao" id="m-descricao"></p>
+        <div class="menu-contatos" id="m-contatos"></div>
+      </div>
+    </header>
+
+    <div class="menu-busca">
+      <label class="sr-only" for="m-busca">Buscar no cardápio</label>
+      <input type="search" id="m-busca" placeholder="🔎  Buscar no cardápio…" autocomplete="off">
+    </div>
+
+    <nav class="menu-nav" aria-label="Categorias"><div class="menu-nav-in" id="m-nav"></div></nav>
+
+    <main class="menu-conteudo" id="m-conteudo"></main>
+
+    <footer class="menu-rodape">Cardápio digital por <a href="/">Espeto &amp; Breja</a></footer>
+  </div>
+</body>
+</html>
